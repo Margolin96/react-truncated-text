@@ -1,5 +1,6 @@
 .truncated-text {
   white-space: nowrap;
+  overflow: hidden;
   width: inherit;
   display: flex;
 }
