@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useLayoutEffect, useState } from 'react';
 
 import './TruncatedText.css';
 
@@ -9,13 +9,17 @@ export interface ITruncatedTextProps {
   className?: string;
 };
 
-export function TruncatedText({
+export const TruncatedText = React.memo(({
   children,
   tailLength,
   title = '',
   className = '',
-}: ITruncatedTextProps) {
-  const ref = useRef(null);
+}: ITruncatedTextProps) => {
+  const [maxWidth, setMaxWidth] = useState('100%');
+
+  const textRef = useRef(null);
+  const tailRef = useRef(null);
+
   const text = useMemo(() => {
     return (tailLength === 0)
       ? [children, '']
@@ -24,27 +28,16 @@ export function TruncatedText({
         children.slice(-tailLength),
       ];
   }, [children, tailLength]);
-  
-  useLayoutEffect(() => {
-    const node = ref.current;
-    console.log(node);
-    const handler = (event: ClipboardEvent) => {
-      event.clipboardData.setData(
-        'text/plain',
-        document.getSelection().toString().replace('\n', ''),
-      );
-      event.preventDefault();
-    };
 
-    node.addEventListener('copy', handler);
-    return () => node.removeEventListener('copy', handler);
-  }, [ref]);
+  useLayoutEffect(() => {
+    const { width: tail } = tailRef.current.getBoundingClientRect();
+    setMaxWidth(`calc(100% - ${tail}px)`);
+  }, [textRef, tailRef, text]);
 
   return (
-    <div className={`truncated-text ${className}`} title={title} ref={ref}>
-      <span className='truncated-text__full'>{ children }</span>
-      <span className='truncated-text__truncated'>{ text[0] }</span>
-      <span className='truncated-text__tail'>{ text[1] }</span>
+    <div className={`truncated-text ${className}`} title={title}>
+      <span className='truncated-text__truncated' ref={textRef} style={{maxWidth}}>{ text[0] }</span>
+      <span className='truncated-text__tail' ref={tailRef}>{ text[1] }</span>
     </div>
   );
-}
+});

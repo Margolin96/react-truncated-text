@@ -2,8 +2,6 @@
   white-space: nowrap;
   overflow: hidden;
   width: inherit;
-  display: flex;
-  position: relative;
 }
 .truncated-text__full {
   position: absolute;
@@ -12,6 +10,7 @@
   pointer-events: none;
 }
 .truncated-text__truncated {
+  float: left;
   overflow: hidden;
   text-overflow: ellipsis;
 }

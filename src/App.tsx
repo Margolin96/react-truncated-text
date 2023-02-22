@@ -1,49 +1,88 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TruncatedText } from './TruncatedText';
 
 function App() {
-  const [offset, setOffset] = useState(0);
+  const [width, setWidth] = useState(200);
+  const [count, setCount] = useState(10);
+  const [offset, setOffset] = useState(5);
+  const [items, setItems] = useState([]);
 
-  const items = useMemo(() => {
-    return new Array(2000).fill(null).map((_, index) => {
+  useEffect(() => {
+    setItems(new Array(count).fill(null).map((_, index) => {
       return {
         text: `feature/create-new-text-ellipsis-component-TC2018.${index}`,
         tail: index % 50 + offset,
       };
-    })
-  }, [offset]);
+    }));
+  }, [count, offset]);
 
   return (
     <div className="App">
-      <input
-        type="number"
-        value={offset}
-        onChange={(e) => {
-          setOffset(Number(e.target.value));
-        }}
-      />
+      <div>
+        <b>Column Width</b>
+        <br/>
+        <input
+          type="number"
+          value={width}
+          onChange={(e) => {
+            setWidth(Number(e.target.value));
+          }}
+        />
+      </div>
+
+      <br/>
+
+      <div>
+        <b>Tail offset</b>
+        <br/>
+        <input
+          type="number"
+          value={offset}
+          onChange={(e) => {
+            setOffset(Number(e.target.value));
+          }}
+        />
+      </div>
+
+      <br/>
+
+      <div>
+        <b>Rows count</b>
+        <br/>
+        <input
+          type="number"
+          value={count}
+          onChange={(e) => {
+            setCount(Number(e.target.value));
+          }}
+        />
+      </div>
+
+      <br/>
 
       <table>
         <tbody>
           { items.map(({ text, tail }, index) =>
-            <tr key={index}>
-              <td width={200}>
-                <TruncatedText
-                  children={text}
-                  tailLength={tail}
-                  title={text}
-                />
-              </td>
+            <React.Fragment key={index}>
+              <tr>
+                {/* <td width={width}>
+                  <TruncatedText
+                    children={text}
+                    tailLength={tail}
+                    title={text}
+                  />
+                </td> */}
 
-              <td width={200}>
-                <TruncatedText
-                  children={text}
-                  tailLength={tail}
-                  title={text}
-                />
-              </td>
-            </tr>
+                <td width={width}>
+                  <TruncatedText
+                    children={text}
+                    tailLength={tail}
+                    title={text}
+                  />
+                </td>
+              </tr>
+            </React.Fragment>
           ) }
         </tbody>
       </table>
