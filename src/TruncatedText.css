@@ -3,15 +3,13 @@
   overflow: hidden;
   width: inherit;
 }
-.truncated-text__full {
-  position: absolute;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  user-select: none;
-}
 .truncated-text__truncated {
   float: left;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.truncated-text__hidden-tail {
+  overflow: hidden;
+  width: 0;
+  user-select: none;
 }

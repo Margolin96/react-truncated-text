@@ -36,8 +36,10 @@ export const TruncatedText = React.memo(({
 
   return (
     <div className={`truncated-text ${className}`} title={title}>
-      <span className='truncated-text__full'>{ children }</span>
-      <span className='truncated-text__truncated' ref={textRef} style={{maxWidth}}>{ text[0] }</span>
+      <span className='truncated-text__truncated' ref={textRef} style={{maxWidth}}>
+        { text[0] }
+        <span className="truncated-text__hidden-tail">{ text[1] }</span>
+      </span>
       <span className='truncated-text__tail' ref={tailRef}>{ text[1] }</span>
     </div>
   );
