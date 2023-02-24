@@ -2,33 +2,35 @@
   white-space: nowrap;
   overflow: hidden;
   width: inherit;
+  position: relative;
 }
 .truncated-text__truncated {
   float: left;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.truncated-text__tail-holder {
-  display: block;
-  width: max-content;
-  visibility: hidden;
-  height: 0;
-}
-.truncated-text__tail-holder:before {
-  content: attr(data-text);
+  pointer-events: none;
 }
 .truncated-text__tail {
   max-width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis;
-  direction: rtl;
-  float: left;
-}
-.truncated-text__tail:before {
-  content: 'a';
-  font-size: 0;
+  pointer-events: none;
 }
 .truncated-text__hidden-tail {
   user-select: none;
   font-size: 0;
+}
+.truncated-text__truncated:before,
+.truncated-text__tail:before {
+  content: attr(data-text);
+}
+.truncated-text__full {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.1rem;
+  z-index: 1;
+  bottom: 0;
+  color: transparent;
+  line-height: 3.1rem;
+  overflow: hidden;
 }
