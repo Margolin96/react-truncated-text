@@ -8,6 +8,26 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.truncated-text__tail-holder {
+  display: block;
+  width: max-content;
+  visibility: hidden;
+  height: 0;
+}
+.truncated-text__tail-holder:before {
+  content: attr(data-text);
+}
+.truncated-text__tail {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+  float: left;
+}
+.truncated-text__tail:before {
+  content: 'a';
+  font-size: 0;
+}
 .truncated-text__hidden-tail {
   user-select: none;
   font-size: 0;

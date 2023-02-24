@@ -40,7 +40,8 @@ export const TruncatedText = React.memo(({
         { text[0] }
         <span className="truncated-text__hidden-tail">{ text[1] }</span>
       </span>
-      <span className='truncated-text__tail' ref={tailRef}>{ text[1] }</span>
+      <span className='truncated-text__tail'>{ text[1] }</span>
+      <span className='truncated-text__tail-holder' ref={tailRef} data-text={text[1]} />
     </div>
   );
 });
