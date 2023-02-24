@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import { TruncatedText } from './TruncatedText';
 
+type DemoItem = {
+  text: string;
+  tail: number;
+};
+
 function App() {
-  const [width, setWidth] = useState(200);
+  const [width, setWidth] = useState(100);
   const [count, setCount] = useState(10);
   const [offset, setOffset] = useState(5);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<DemoItem[]>([]);
 
   useEffect(() => {
     setItems(new Array(count).fill(null).map((_, index) => {

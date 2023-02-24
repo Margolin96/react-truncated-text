@@ -16,9 +16,7 @@ export const TruncatedText = React.memo(({
   className = '',
 }: ITruncatedTextProps) => {
   const [maxWidth, setMaxWidth] = useState('100%');
-
-  const textRef = useRef(null);
-  const tailRef = useRef(null);
+  const tailRef = useRef<HTMLElement>(null);
 
   const text = useMemo(() => {
     return (tailLength === 0)
@@ -30,13 +28,15 @@ export const TruncatedText = React.memo(({
   }, [children, tailLength]);
 
   useLayoutEffect(() => {
+    if (!tailRef.current) return;
+
     const { width: tail } = tailRef.current.getBoundingClientRect();
     setMaxWidth(`calc(100% - ${tail}px)`);
-  }, [textRef, tailRef, text]);
+  }, [tailRef, text]);
 
   return (
     <div className={`truncated-text ${className}`} title={title}>
-      <span className='truncated-text__truncated' ref={textRef} style={{maxWidth}}>
+      <span className='truncated-text__truncated' style={{maxWidth}}>
         { text[0] }
         <span className="truncated-text__hidden-tail">{ text[1] }</span>
       </span>
