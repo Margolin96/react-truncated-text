@@ -8,8 +8,8 @@ type DemoItem = {
 };
 
 function App() {
-  const [width, setWidth] = useState(100);
-  const [count, setCount] = useState(10);
+  const [width, setWidth] = useState(200);
+  const [count, setCount] = useState(1000);
   const [offset, setOffset] = useState(5);
   const [items, setItems] = useState<DemoItem[]>([]);
 
